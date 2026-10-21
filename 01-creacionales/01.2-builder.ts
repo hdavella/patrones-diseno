@@ -50,28 +50,34 @@ class QueryBuilder {
   }
 
   select(...fields: string[]): QueryBuilder {
+
     this.fields = fields;
     return this;
   }
 
   where(condition: string): QueryBuilder {
+
     this.conditions.push(condition);
     return this;
   }
 
   orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
-    this.orderFields.push(`order by ${field} ${direction}`);
+
+    this.orderFields.push(field + " ");
+    //this.orderFields.push(direction);
     return this;
   }
 
   limit(count: number): QueryBuilder {
+
     this.limitCount = count;
     return this;
   }
 
   execute(): string {
 
-    return `Method not implemented`;
+    return `Select ${this.fields} from ${this.table} where ${this.conditions} orderby ${this.orderFields} limit ${this.limitCount}`;
+    //Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10
   }
 }
 
@@ -79,7 +85,7 @@ function main() {
   const usersQuery = new QueryBuilder('users')
     .select('id', 'name', 'email')
     .where('age > 20')
-    // .where("country = 'CHI'") // Esto debe de hacer una condición AND
+    .where("country = 'CHI'") // Esto debe de hacer una condición AND
     .orderBy('name', 'ASC')
     .orderBy('age', 'DESC')
     .limit(100)
@@ -87,6 +93,18 @@ function main() {
 
   console.log('%cConsulta:\n', COLORS.blue);
   console.log(usersQuery);
+
+  const dbaQuery = new QueryBuilder('dba')
+    .select('id', 'name', 'email')
+    .where('age > 20')
+    .where("country = 'CHI'") // Esto debe de hacer una condición AND
+    .orderBy('name', 'ASC')
+    .orderBy('age', 'DESC')
+    .limit(100)
+    .execute();
+
+  console.log('%cConsulta:\n', COLORS.green);
+  console.log(dbaQuery);
 }
 
 main();
