@@ -70,21 +70,8 @@ class QueryBuilder {
   }
 
   execute(): string {
-    const fields = this.fields.length > 0 ? this.fields.join(', ') : '*';
 
-    const whereClause =
-      this.conditions.length > 0
-        ? `WHERE ${this.conditions.join(' AND ')}`
-        : ' ';
-
-    const orderByClause =
-      this.orderFields.length > 0
-        ? `ORDER BY ${this.orderFields.join(', ')}`
-        : '';
-
-    const limitClause = this.limitCount ? `LIMIT ${this.limitCount}` : '';
-
-    return `Select ${fields} from ${this.table} ${whereClause} ${orderByClause} ${limitClause}`;
+    return `Method not implemented`;
   }
 }
 
@@ -98,7 +85,7 @@ function main() {
     .limit(100)
     .execute();
 
-  console.log('%cConsulta:\n', COLORS.red);
+  console.log('%cConsulta:\n', COLORS.blue);
   console.log(usersQuery);
 }
 
