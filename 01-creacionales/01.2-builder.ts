@@ -105,6 +105,18 @@ function main() {
 
   console.log('%cConsulta:\n', COLORS.green);
   console.log(dbaQuery);
+
+  const dataQuery = new QueryBuilder('data')
+    .select('id', 'name', 'email')
+    .where('age > 20')
+    .where("country = 'CHI'") // Esto debe de hacer una condición AND
+    .orderBy('name', 'ASC')
+    .orderBy('age', 'DESC')
+    .limit(100)
+    .execute();
+
+  console.log('%cConsulta:\n', COLORS.green);
+  console.log(dataQuery);
 }
 
 main();
